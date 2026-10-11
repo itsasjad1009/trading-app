@@ -1,0 +1,60 @@
+/* Reference measurements normalized from the screenshots' apparent 1.25 display scale.
+   Scope protects authentication and the trading platform from these overrides. */
+.landing-page{font-family:Arial,Helvetica,sans-serif;color:#fff;background:#0b0e13;--muted:#98a4b5}
+.landing-page .hero{min-height:728px;padding:78px 24px 56px;background:#0b0e13}
+.landing-page .particle-network{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;animation:none}
+.landing-page .announcement{height:38px;padding:0 17px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;line-height:20px;border-color:#00dae838;background:#00dae80c}
+.landing-page .hero h1{font-size:72px;line-height:1;letter-spacing:-1px;font-weight:700;margin:38px 0 28px}
+.landing-page .hero>p{font-size:20px;line-height:28px;max-width:690px;color:var(--muted)}
+.landing-page .hero-actions{gap:16px;margin:42px 0 64px}
+.landing-page .hero-actions .button{height:60px;min-height:60px;padding:12px 20px;font-size:18px;font-weight:600;border-radius:12px;gap:10px}
+.landing-page .hero-actions .primary{width:185px;background:linear-gradient(110deg,#00dae8,#00bdcb);border:1px solid #00dae8}
+.landing-page .hero-actions .outline{width:115px;border:1px solid #ffffff20;background:transparent}
+.landing-page .hero-actions .button:hover{filter:brightness(1.1)}
+.landing-page .hero-actions svg{width:20px;height:20px}
+.landing-page .hero-stats{grid-template-columns:repeat(4,150px);gap:24px}
+.landing-page .hero-stats>div{height:118px;padding:16px 10px;gap:5px;border-radius:16px;border-color:#ffffff14;background:linear-gradient(135deg,#ffffff06,#ffffff04)}
+.landing-page .hero-stats svg{width:22px;height:22px;margin-bottom:6px}
+.landing-page .hero-stats strong{font-size:26px;line-height:30px;font-weight:700}
+.landing-page .hero-stats small{font-size:14px;line-height:20px;color:var(--muted);white-space:nowrap}
+.landing-page .public-section{max-width:1200px;padding:56px 24px 0;margin:auto}
+.landing-page .public-section>h2{font-size:36px;line-height:43px;font-weight:700;margin:0 0 14px}
+.landing-page .public-section>.center{font-size:16px;line-height:24px;margin:0;color:var(--muted)}
+.landing-page .features{gap:24px;margin:64px 0 0}
+.landing-page .features .card{height:189px;min-height:189px;padding:24px;border-radius:16px;border:1px solid #ffffff12;background:#11141b}
+.landing-page .features .icon-tile{height:48px;width:48px;border-radius:16px;background:#00dae80c;border:1px solid #00dae806}
+.landing-page .features .icon-tile.purple{background:#a84df410;border-color:#a84df406}
+.landing-page .features .icon-tile svg{width:24px;height:24px}
+.landing-page .features h3{font-size:18px;line-height:24px;margin:18px 0 10px;font-weight:600}
+.landing-page .features p{font-size:14px;line-height:20px;margin:0;color:var(--muted)}
+.landing-page .promos{gap:24px;margin:80px 0 0}
+.landing-page .promo{height:192px;min-height:192px;padding:56px 24px;border-radius:16px;border:1px solid #ffffff0b;background:#0b0e13}
+.landing-page .promo-background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.landing-page .promo:after{background:linear-gradient(90deg,#090b14aa,transparent 85%)}
+.landing-page .promo small{font-size:14px;letter-spacing:0;line-height:20px}
+.landing-page .promo h3{font-size:20px;line-height:26px;margin:6px 0 10px;max-width:none;font-weight:700}
+.landing-page .promo span{font-size:14px;line-height:20px}
+.landing-page .landing-disclosure{margin:0;padding:48px 0;text-align:center;color:var(--muted);font-size:11px;line-height:16px}
+.landing-page footer{height:108px;padding:24px max(24px,calc((100% - 1152px)/2));border-color:#ffffff10;background:#0b0e13;flex-wrap:nowrap;gap:20px}
+.landing-page footer .brand{font-size:20px}
+.landing-page footer small{font-size:14px;color:var(--muted)}
+.landing-page footer>div{font-size:11px;gap:14px}
+@media(min-width:640px) and (max-width:1023px){
+ .landing-page .hero{padding-top:56px;min-height:690px}.landing-page .hero h1{font-size:64px}.landing-page .hero-stats{grid-template-columns:repeat(4,minmax(0,150px));gap:16px}
+ .landing-page .features{grid-template-columns:repeat(2,minmax(0,1fr))}.landing-page .features .card{height:auto;min-height:189px}.landing-page .promos{margin-top:56px}.landing-page .landing-disclosure{padding:36px 0}.landing-page .promo{padding:48px 20px}.landing-page .promo h3{font-size:18px}.landing-page footer{height:auto;flex-wrap:wrap}
+}
+@media(max-width:639px){
+ .landing-page .hero{min-height:auto;padding:32px 16px}.landing-page .announcement{font-size:11px;height:36px;padding:0 12px;max-width:100%}
+ .landing-page .hero h1{font-size:clamp(44px,13vw,58px);margin:28px 0 22px}.landing-page .hero>p{font-size:16px;line-height:24px}
+ .landing-page .hero-actions{gap:12px;margin:28px 0 32px}.landing-page .hero-actions .button{height:48px;min-height:48px;width:auto;flex:1;max-width:210px;padding:10px;font-size:14px;gap:8px}
+ .landing-page .hero-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.landing-page .hero-stats>div{height:114px}.landing-page .hero-stats strong{font-size:24px}.landing-page .hero-stats small{font-size:13px}
+ .landing-page .public-section{padding:32px 16px 0}.landing-page .public-section>h2{font-size:27px;line-height:34px}.landing-page .public-section>.center{font-size:14px;line-height:21px}
+ .landing-page .features{grid-template-columns:1fr;gap:16px;margin-top:28px}.landing-page .features .card{height:auto;min-height:185px;padding:20px}
+ .landing-page .promos{grid-template-columns:1fr;gap:16px;margin-top:40px}.landing-page .promo{height:192px;min-height:192px;padding:48px 20px}.landing-page .promo h3{font-size:20px}.landing-page .promo small{font-size:12px}
+ .landing-page .landing-disclosure{font-size:11px;padding:28px 0}.landing-page footer{height:auto;padding:24px 16px;flex-direction:column;align-items:flex-start;gap:12px;padding-bottom:max(24px,env(safe-area-inset-bottom))}.landing-page footer small{font-size:12px}
+}
+@media(min-width:640px){.landing-page .hero h1{letter-spacing:0;margin-bottom:18px}}
+.landing-page .hero-actions .outline{outline:none}
+.landing-page .hero-actions .outline:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.landing-page .hero-stats>div{background:linear-gradient(135deg,#ffffff0c,#ffffff09)}
+

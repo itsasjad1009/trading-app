@@ -1,0 +1,11 @@
+# Testing
+
+Backend: PHPUnit with RefreshDatabase uses a forced in-memory SQLite connection and array sessions/mail; it never wipes the development database. Coverage includes registration, login/logout, password recovery notifications, verification, customer/admin isolation, private KYC uploads and invalid files, support isolation, MFA setup gating, stake reservation, normalized request retries, changed-payload rejection, bad amounts/pairs/durations, stale quotes, open limits, suspension, exact win/loss/tie settlement, early/duplicate settlement, wallet refunds/funding and balanced entries.
+
+Frontend: Vitest/React Testing Library tests amount presets, custom minimum and available-balance disabling. Expanded UI behavior is exercised through Playwright. Browser projects use 1920x1080 and 390x844, create local fixtures, inspect every public/protected route, test trading/support, check document width and capture full-page screenshots. Filament is exercised with a local staff fixture. No reference pixel baselines are silently approved; maintain docs/visual-differences.md and review screenshots in test-results. Browser tests use the local development DB and intentionally add fixture accounts.
+
+MySQL contention: php -d extension=intl scripts/concurrency-check.php launches two actual PHP workers competing for the same customer's available balance. This confirms the current user-row mutex prevents two 7,000 stakes from overspending a 10,000 wallet. It is a focused contention probe, not a production benchmark.
+
+Performance strategy: use a separate staging MySQL database and synthetic users; measure p50/p95 acceptance latency, lock wait/deadlock retry rates, scheduler expiry lag, queue latency, browser chart frame rate and SQL query counts with 10/50/100 concurrent clients. Repeat with duplicate order/settlement requests, worker restarts and disconnected WebSockets. Reconcile every ledger transaction and customer account afterward. No production capacity is claimed.
+
+Run scripts/check.ps1 or the README commands with Node 22.23+. Run npm audit and Composer audit when updating dependencies. Current reported dependency vulnerabilities: zero. Exact latest test results are in docs/development-report.md.

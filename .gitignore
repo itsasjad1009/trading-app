@@ -1,0 +1,77 @@
+# Package and build dependencies
+/node_modules
+/public/build
+/public/css/filament
+/public/fonts/filament
+/public/hot
+/public/js/filament
+/public/storage
+/vendor
+
+# Storage and user uploads (CRITICAL SENSITIVE)
+/storage/*.key
+/storage/pail
+/storage/app/*
+!/storage/app/.gitignore
+/storage/app/private/*
+!/storage/app/private/.gitignore
+/storage/app/public/*
+!/storage/app/public/.gitignore
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+*.log
+
+# Environment & Secrets (CRITICAL SENSITIVE)
+.env
+.env.*
+!.env.example
+/auth.json
+*.key
+*.pem
+*.crt
+*.pfx
+*.p12
+
+# Database & Backups (CRITICAL SENSITIVE)
+*.sqlite
+*.sqlite-journal
+*.sql
+*.sql.gz
+*.bak
+*.dump
+/database/*.sqlite
+/database/*.sqlite-journal
+
+# Tests, artifacts & temporary caches
+/.phpunit.cache
+.phpunit.result.cache
+/.runtime
+/test-results
+/test-artifacts
+/playwright-report
+
+# Editor & System files
+.phpactor.json
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+.DS_Store
+Thumbs.db
+desktop.ini
+

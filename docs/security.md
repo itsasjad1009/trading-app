@@ -1,0 +1,11 @@
+# Security
+
+Fortify uses Laravel sessions, CSRF, password hashing, session regeneration, login throttling, email verification and MFA. Registration requires 12+ characters including mixed case, a number and a symbol. Authenticated routes require an active verified account. Customer reads enforce ownership; Laravel policies restrict private KYC/support downloads to their owner and the relevant staff role. Staff access requires an active verified staff role; Operations Center restricts modules by role and services independently enforce permissions.
+
+Withdrawals require the account password and an authenticator code when MFA is enrolled. Financial reviews require staff password confirmation and a written reason. Payouts/outcomes are immutable to staff. Each financial review creates balanced ledger entries and an audit log. Wallet balances are ledger-derived. Trade request UUID uniqueness protects retries.
+
+Identity fields and withdrawal destinations are encrypted with APP_KEY. Files live on the private local disk and use randomized names. JPG/PNG KYC uploads have content inspection and a 5 MB limit. Support allows JPG/PNG/PDF, private authorized downloads, and 5 MB limit. Do not create a public storage link for these directories. Daily kyc:purge removes documents after 90 days. The app has no configured malware scanner; integrate one before accepting production identity documents. Storage encryption-at-rest, secure backups and a reviewed deletion/retention policy are deployment responsibilities.
+
+React escapes text. MFA QR HTML comes exclusively from authenticated Fortify-generated SVG. Logs must be private: local email verification/recovery links are written to Laravel logs. Do not expose .env, storage or vendor via Apache. Point the document root at public. Production needs HTTPS, SESSION_SECURE_COOKIE=true, APP_DEBUG=false, scoped Reverb origins, strong DB credentials and updated runtimes.
+
+Known limits: formal penetration testing, multi-process MySQL contention benchmarks, MFA recovery scenario browser coverage, scanner integration and independent privacy/legal review remain. Real deposits, custody, payouts and referral rewards are unimplemented and disabled. Do not present the demo as a production financial service.

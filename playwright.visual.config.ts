@@ -1,0 +1,2 @@
+import {defineConfig} from '@playwright/test';
+export default defineConfig({testDir:'tests/visual',outputDir:'test-artifacts/visual-test-results',timeout:180000,workers:1,use:{baseURL:'http://127.0.0.1:8000',trace:'retain-on-failure'},projects:[{name:'large',use:{viewport:{width:1920,height:1080}}},{name:'laptop',use:{viewport:{width:1440,height:900}}},{name:'small-laptop',use:{viewport:{width:1366,height:768}}},{name:'tablet',use:{viewport:{width:1024,height:768}}},{name:'mobile',use:{viewport:{width:390,height:844}}}],reporter:'list'});

@@ -1,0 +1,2 @@
+import {Link} from '@inertiajs/react';import type{ReactNode}from'react';
+export default function PublicLayout({children}:{children:ReactNode}){return <>{children}<footer><Link className="brand" href="/">aster✧</Link><div><Link href="/legal/privacy">Privacy</Link><Link href="/legal/terms">Terms</Link><Link href="/legal/risk">Risk disclosure</Link></div><small>© {new Date().getFullYear()} Aster Exchange. Demo environment.</small></footer></>;}

@@ -1,0 +1,10 @@
+# Database schema
+
+Amounts are signed integer cents in ledger_entries and unsigned integer cents in stakes/requests. Prices use unsigned integer millionths of USDT. Entries reference ledger transactions and accounts. Customer wallets have available/reserved accounts; a demo treasury balances issuance and settlements. Wallet balances are calculated by summing entries, never a mutable cached wallet balance.
+
+users: identity, hashed password, role, status, referral code, encrypted Fortify MFA fields. wallets: one per user. ledger_accounts: unique account code. ledger_transactions: unique reference and idempotency key. ledger_entries: signed deltas. trading_pairs: supported symbols with fixed simulation base. trades: owner/pair, unique owner/request UUID, payload digest, direction/stake/entry/rate/expiry/status. trade_settlements: unique trade, observed expiry, profit and payout. Wallet requests: owner/request uniqueness, amount/status/encrypted withdrawal destination/reviewer. kyc_applications: encrypted full name and IDs, consent and review metadata. kyc_documents: private randomized storage paths. support_conversations: unique owner, assignment, status. support_messages: body, private attachment, read time. referrals: unique referred user. notifications: Laravel database notifications. audit_logs: staff action metadata. platform_settings: JSON values.
+
+Laravel also supplies sessions, password reset tokens, cache/cache locks and database queue/failed job tables. Eloquent model relationships are in app/Models. User factory and MarketSeeder supply test identities and demo markets; seeders do not publish default administrator credentials.
+
+The migration can resume tables created during an interrupted initial installation. Fresh installations should run in an empty database. Never use migrate:fresh on a database with user data. DateTime fields avoid legacy MariaDB implicit TIMESTAMP default behavior. The application now connects to MySQL Community Server 8.4.11 on port 3307. Fresh migrations, browser workflows and a two-worker contention probe have passed there. The existing MariaDB on 3306 is preserved.
+

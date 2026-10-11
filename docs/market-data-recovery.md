@@ -1,0 +1,11 @@
+# Feed recovery
+
+States: CONNECTING at startup; RECOVERING after reconnect; LIVE when required prices arrive; DEGRADED during incomplete startup/coverage; STALE when no valid messages for15s; DISCONNECTED after errors, closed stream, missing heartbeat or stopped worker. Per-symbol display health also requires fresh ticker statistics. The worker checks inactivity and reconnects after45s. Incident transitions persist; invalid-message logs are coalesced to once/minute. UI marks retained data stale and never silently reverts an exchange chart to simulated data.
+
+Connection attempts back off with jitter, capped63s. Server shutdown events trigger reconnect. Combined subscriptions are rebuilt each connection. ReconcileMarketHistory queues a bounded previous10m candle repair on reconnect; it does not reconstruct raw trades or claim gap-free settlement observations. For long outages run market:backfill for desired windows and inspect missing_count.
+
+Windows Ctrl+C uses sapi_windows_set_ctrl_handler where available; bounded --seconds runs stop and release the lease. Crash leases expire45s. Stop commands should target the PID for this project's worker, not every php.exe. Preserve positions and financial records; simulated settlement does not depend on feed health.
+
+Clock comparison uses provider /time midpoint and round-trip estimate. Exchange event timestamps and receive timestamps are both stored; clock offset and uncertainty are reported. Host clock synchronization is required. Short-soak latencies are receipt minus event time and are not adjusted for uncertainty. This is unsuitable as proof of exact-expiry timing.
+
+Database isolation incident during implementation: the first direct-PHPUnit runner inherited Laravel-loaded environment variables, overriding its intended XML database selection. It refreshed trading_app. Recovery used MySQL binary logs up to the first DROP event at position30164139 of binlog.000002, replayed first on the separate port3308 audit instance. See the final testing report for validated recovery counts. The runner now supplies explicit process environment and Tests/TestCase validates actual port, database name and data directory BEFORE RefreshDatabase executes. This incident is an operational limitation and must not be omitted from readiness review.

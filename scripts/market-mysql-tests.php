@@ -1,0 +1,12 @@
+<?php
+require __DIR__.'/../vendor/autoload.php';
+$app=require __DIR__.'/../bootstrap/app.php';$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+$credentials=json_decode(file_get_contents(base_path('.runtime/market-test-credentials.json')),true,512,JSON_THROW_ON_ERROR);
+$pdo=new PDO('mysql:host=127.0.0.1;port=3308;charset=utf8mb4',$credentials['username'],$credentials['password'],[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+$version=$pdo->query('SELECT VERSION()')->fetchColumn();$directory=str_replace('\\','/',$pdo->query('SELECT @@datadir')->fetchColumn());
+if(!str_starts_with($version,'8.4.')||!str_contains($directory,'Trading app/.runtime/mysql-audit-data'))throw new RuntimeException('Isolated MySQL instance verification failed');
+$database='aster_market_test_'.date('Ymd_His');$pdo->exec("CREATE DATABASE `$database` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+$xml=file_get_contents(__DIR__.'/../phpunit.xml');$xml=str_replace('value="sqlite"','value="mysql"',$xml);$xml=str_replace('value=":memory:"','value="'.$database.'"',$xml);$xml=str_replace('<env name="DB_CONNECTION"','<env name="DB_HOST" value="127.0.0.1" force="true"/><env name="DB_PORT" value="3308" force="true"/><env name="DB_USERNAME" value="'.$credentials['username'].'" force="true"/><env name="DB_PASSWORD" value="'.$credentials['password'].'" force="true"/><env name="DB_URL" value="" force="true"/><env name="DB_CONNECTION"',$xml);
+$path=base_path('phpunit.market-mysql.xml');file_put_contents($path,$xml);
+$process=new Symfony\Component\Process\Process([PHP_BINARY,'-d','extension=intl','vendor/phpunit/phpunit/phpunit','--configuration',$path,'--log-junit','test-artifacts/market-data/mysql-tests.xml'],base_path(),['APP_ENV'=>'testing','DB_CONNECTION'=>'mysql','DB_HOST'=>'127.0.0.1','DB_PORT'=>'3308','DB_DATABASE'=>$database,'DB_USERNAME'=>$credentials['username'],'DB_PASSWORD'=>$credentials['password'],'DB_URL'=>'','MARKET_DATA_ENABLED'=>'false','BROADCAST_CONNECTION'=>'null','CACHE_STORE'=>'array','SESSION_DRIVER'=>'array','MAIL_MAILER'=>'array','QUEUE_CONNECTION'=>'sync']);$process->setTimeout(180);$process->run(fn($type,$buffer)=>print($buffer));
+$report=['version'=>$version,'isolated_database'=>$database,'exit_code'=>$process->getExitCode(),'database_identity_guard_enforced'=>true];file_put_contents(base_path('test-artifacts/market-data/mysql-tests.json'),json_encode($report,JSON_PRETTY_PRINT));unlink($path);exit($process->getExitCode());
